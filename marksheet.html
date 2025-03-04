@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marksheet - Karnavati University</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .university-logo {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #003366;
+        }
+        
+        .grade-A {
+            color: #28a745;
+        }
+
+        .grade-B {
+            color: #17a2b8;
+        }
+
+        .grade-C {
+            color: #6c757d;
+        }
+
+        .grade-D {
+            color: #ffc107;
+        }
+
+        .grade-F {
+            color: #dc3545;
+        }
+
+        .print-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background-color: #002855;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light py-4">
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="text-center py-4 mb-4">
+            <div class="university-logo mx-auto mb-3">
+                <img src="C:\Users\shahd\OneDrive\Desktop\karnavati.jpg" alt="Karnavati University Logo" class="img-fluid">
+            </div>
+            <h1 class="h3 text-primary">Karnavati University</h1>
+            <p class="text-muted">Statement of Grades</p>
+        </div>
+
+        <!-- Student Info Section -->
+        <div class="row mb-4 bg-light p-3 border rounded">
+            <div class="col-md-6">
+                <div class="mb-2">
+                    <span class="fw-bold">Student Name: </span><span id="student-name">Dhir Shah</span>
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Enrollment No.: </span><span id="enrollment-no">202307030004</span>
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Program: </span>BS + MS
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Batch: </span>2023-2028
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-2">
+                    <span class="fw-bold">Academic Year: </span>2024-2025
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Current Semester: </span>4th
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Issue Date: </span>15 Jan 2025
+                </div>
+                <div class="mb-2">
+                    <span class="fw-bold">Status: </span>Regular
+                </div>
+            </div>
+        </div>
+
+        <!-- Semester Selection -->
+        <div class="mb-4">
+            <label for="semester" class="form-label">Select Semester:</label>
+            <select id="semester" class="form-select" onchange="changeSemester()">
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4" selected>Semester 4 (Current)</option>
+            </select>
+        </div>
+
+        <!-- Marks Table -->
+        <table class="table table-bordered mb-4">
+            <thead class="table-light">
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Max. Marks</th>
+                    <th>Marks Obtained</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>71204001001</td>
+                    <td>Web Technology and Design</td>
+                    <td>100</td>
+                    <td>80</td>
+                </tr>
+                <tr>
+                    <td>71204001002</td>
+                    <td>Object Oriented Programming using Java</td>
+                    <td>100</td>
+                    <td>87</td>
+                </tr>
+                <tr>
+                    <td>71204001003</td>
+                    <td>Operating Systems</td>
+                    <td>100</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td>71204001004</td>
+                    <td>Mastering in Kali Linux</td>
+                    <td>100</td>
+                    <td>89</td>
+                </tr>
+                <tr>
+                    <td>71204001005</td>
+                    <td>Social Media and Blog Writing</td>
+                    <td>100</td>
+                    <td>67</td>
+                </tr>
+                <tr>
+                    <td>UC012000003</td>
+                    <td>Quantitative Aptitude & Interpretation</td>
+                    <td>100</td>
+                    <td>58</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Footer Section with Result Summary -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <p><strong>Total Obtained Marks:</strong> 459</p>
+                <p><strong>Total Marks:</strong> 600</p>
+                <p><strong>Month and Year of Examination:</strong> Feb 2025</p>
+                <p><strong>Result:</strong> PASS</p>
+                <p><strong>Grade:</strong> B+</p>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="h4 text-primary" id="cgpa">8.05</div>
+                <div class="small text-muted">CGPA</div>
+                <div class="h4 text-primary" id="percentage">76.5%</div>
+                <div class="small text-muted">Percentage</div>
+            </div>
+        </div>
+
+        <!-- Grading System Table -->
+        <div class="mb-4">
+            <h5 class="mb-3">Grading System</h5>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Grade</th>
+                        <th>Marks Range</th>
+                        <th>Grade Points</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="grade grade-A">A+</td>
+                        <td>90-100</td>
+                        <td>10</td>
+                        <td>Outstanding</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-A">A</td>
+                        <td>85-89</td>
+                        <td>9</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-A">A-</td>
+                        <td>80-84</td>
+                        <td>8</td>
+                        <td>Very Good</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-B">B+</td>
+                        <td>75-79</td>
+                        <td>7</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-B">B</td>
+                        <td>70-74</td>
+                        <td>6</td>
+                        <td>Above Average</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-C">C+</td>
+                        <td>65-69</td>
+                        <td>5</td>
+                        <td>Average</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-C">C</td>
+                        <td>60-64</td>
+                        <td>4</td>
+                        <td>Below Average</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-D">D</td>
+                        <td>50-59</td>
+                        <td>3</td>
+                        <td>Pass</td>
+                    </tr>
+                    <tr>
+                        <td class="grade grade-F">F</td>
+                        <td>Below 50</td>
+                        <td>0</td>
+                        <td>Fail</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Remarks and Signatures -->
+        <div class="mb-4">
+            <h5 class="mb-3">Remarks</h5>
+            <p>The student has successfully completed all courses for the semester with good academic standing.</p>
+            <div class="d-flex justify-content-between mt-4">
+                <div class="text-center" style="width: 200px;">
+                    <div class="border-bottom mb-2"></div>
+                    <p class="small">Examination Controller</p>
+                </div>
+                <div class="text-center" style="width: 200px;">
+                    <div class="border-bottom mb-2"></div>
+                    <p class="small">Dean of Academics</p>
+                </div>
+                <div class="text-center" style="width: 200px;">
+                    <div class="border-bottom mb-2"></div>
+                    <p class="small">Registrar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="text-center">
+            <p class="small text-muted">This is a computer-generated document and does not require a signature.</p>
+            <p class="small text-muted">For verification, please contact the Examination Department.</p>
+        </div>
+
+        <!-- Print Button -->
+        <button class="print-btn" onclick="window.print()">Print Marksheet</button>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        const semesterData = {
+            "4": {
+                courses: [
+                    { code: "CS401", name: "Data Structures", credits: 4, marks: 87, grade: "A", points: 9 },
+                    { code: "CS402", name: "Computer Networks", credits: 4, marks: 82, grade: "A-", points: 8 },
+                    { code: "CS403", name: "Database Systems", credits: 4, marks: 91, grade: "A+", points: 10 },
+                    { code: "CS404", name: "Operating Systems", credits: 4, marks: 78, grade: "B+", points: 7 },
+                    { code: "CS405", name: "Software Engineering", credits: 4, marks: 85, grade: "A", points: 9 },
+                    { code: "CS406", name: "Data Structures Lab", credits: 2, marks: 90, grade: "A+", points: 10 }
+                ],
+                cgpa: 8.05,
+                percentage: "76.5%",
+            }
+        };
+
+        function changeSemester() {
+            const semester = document.getElementById('semester').value;
+            const data = semesterData[semester];
+
+            document.getElementById('cgpa').textContent = data.cgpa;
+            document.getElementById('percentage').textContent = data.percentage;
+        }
+
+    </script>
+</body>
+</html>

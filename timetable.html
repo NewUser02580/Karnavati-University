@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable - Karnavati University</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABFuE+e3L4PpX+L2j14v9zB6ab+ebTic/hf4VXofG5f5Hj48L3bl5Ph" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgb(255, 255, 255);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.8;
+        }
+        
+        .university-logo {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .timetable-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .info-value {
+            font-weight: 500;
+            color: #212529;
+        }
+        
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .timetable th, .timetable td {
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .timetable th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .timetable .time-slot {
+            font-weight: 500;
+            color: #495057;
+            background-color: #f8f9fa;
+        }
+        
+        .course {
+            background-color: #e6f7ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .course-name {
+            font-weight: 500;
+            color: #003366;
+            margin-bottom: 3px;
+        }
+        
+        .course-details {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .lunch {
+            background-color: #fff8e6;
+            font-weight: 500;
+            color: #856404;
+        }
+        
+        .no-class {
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .legend {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .legend h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        
+        .legend-text {
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .footer {
+            padding: 15px 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .timetable-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .timetable th, .timetable td {
+                padding: 10px 5px;
+                font-size: 14px;
+            }
+            
+            .course {
+                padding: 5px;
+            }
+            
+            .course-name {
+                font-size: 14px;
+            }
+            
+            .course-details {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="C:\Users\shahd\OneDrive\Desktop\karnavati.jpg" class="university-logo" alt="Karnavati University Logo">
+            <h1>Class Timetable</h1>
+            <p>Academic Year 2024-2025 | Even Semester</p>
+        </div>
+        
+        <div class="timetable-info">
+            <div class="info-item">
+                <span class="info-label">Student Name</span>
+                <span class="info-value" id="student-name">Dhir Shah</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Enrollment No.</span>
+                <span class="info-value" id="enrollment-no">202307030004</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Program</span>
+                <span class="info-value">B.Tech Computer Science</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Semester</span>
+                <span class="info-value">4th</span>
+            </div>
+        </div>
+        
+        <table class="timetable">
+            <tr>
+                <th>Day/Time</th>
+                <th>11:00-11:50</th>
+                <th>11:50-12:40</th>
+                <th>12:40-13:30</th>
+                <th>13:30-14:20</th>
+                <th>14:20-15:10</th>
+                <th>15:10-16:10</th>
+                <th>16:10-17:00</th>
+            </tr>
+            <tr>
+                <td>Mon</td>
+                <td>MKL (SA)</td>
+                <td>MKL (SA)</td>
+                <td rowspan="5"><b>LUNCH</b></td>
+                <td>WTD (RM, SA)</td>
+                <td>WTD (RM)</td>
+                <td>OS (GL)</td>
+                <td>OOPJ (RG)</td>
+            </tr>
+            <tr>
+                <td>Tue</td>
+                <td>OOPJ (RG)</td>
+                <td>CHAMBER</td>
+                <td>LIBRARY</td>
+                <td>WTD (RM)</td>
+                <td>OOPJ (RG, AS)</td>
+                <td>OOPJ (RG, AS)</td>
+            </tr>
+            <tr>
+                <td>Wed</td>
+                <td>OS (GL)</td>
+                <td>CHAMBER</td>
+                <td>WTD (RM)</td>
+                <td>SM&BW (HM)</td>
+                <td>LR (L&D)</td>
+                <td>MKL (SA)</td>
+            </tr>
+            <tr>
+                <td>Thu</td>
+                <td>OS (GL)</td>
+                <td>CHAMBER</td>
+                <td>WTD (RM)</td>
+                <td>MKL (SA)</td>
+                <td>LR (L&D)</td>
+                <td>LIBRARY</td>
+            </tr>
+            <tr>
+                <td>Fri</td>
+                <td>CHAMBER</td>
+                <td>MKL (SA)</td>
+                <td>OS (GL)</td>
+                <td>SM&BW (HM)</td>
+                <td>LIBRARY</td>
+                <td>MENTORING</td>
+            </tr>
+        </table>
+
+        <table class="timetable">
+            <thead>
+                <tr>
+                    <th>S NO</th>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Short Code</th>
+                    <th>L.T.P.C</th>
+                    <th>Hours</th>
+                    <th>Faculty Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>71204001001</td>
+                    <td>Web Technology and Design</td>
+                    <td>WTD</td>
+                    <td>3-0-1-4</td>
+                    <td>5</td>
+                    <td>Prof. Rama Maliya (RM), Prof. Sanjay Ajani(SA)</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>71204001002</td>
+                    <td>Object Oriented Programming Using Java</td>
+                    <td>OOPJ</td>
+                    <td>3-0-1-4</td>
+                    <td>5</td>
+                    <td>Dr. Roshan Gangurde(RG), Prof. Arvind Singh(AS)</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>71204001003</td>
+                    <td>Operating Systems</td>
+                    <td>OS</td>
+                    <td>3-1-0-4</td>
+                    <td>4</td>
+                    <td>Dr. Gaurav Londhe(GL)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>71204001004</td>
+                    <td>Introduction to Machine Learning</td>
+                    <td>IML</td>
+                    <td>3-0-1-4</td>
+                    <td>5</td>
+                    <td>Dr. Manivel Kandasamy(MK)</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>71204001005</td>
+                    <td>Social Media and Blog Writing</td>
+                    <td>SM&BW</td>
+                    <td>2-0-0-2</td>
+                    <td>2</td>
+                    <td>Dr. Harish Morwani(HM)</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>UC01200003</td>
+                    <td>Quantitative Aptitude & Data Interpretation</td>
+                    <td>QA&DI</td>
+                    <td>2-0-0-2</td>
+                    <td>2</td>
+                    <td>Learning & Development Dept.</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>71204001006</td>
+                    <td>NSS/NCC/Community Service</td>
+                    <td>NSS</td>
+                    <td>0-0-2-2</td>
+                    <td>2</td>
+                    <td>Block Teaching</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p>Note: This timetable is subject to change. Please check the university portal regularly for updates.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0soDl0v8r06LQe4mP12GTb46kQQFjzHiJ4JAhGpFsNmx33Gz" crossorigin="anonymous"></script>
+</body>
+</html>

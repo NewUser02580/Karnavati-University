@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karnavati University</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="C:\Users\shahd\OneDrive\Desktop\karnavati.jpg" alt="Karnavati University Logo">
+                <h1>Karnavati University</h1>
+            </div>
+        </div>
+    </header>
+    
+    <div class="marquee-container">
+        <marquee>Welcome to Karnavati University UIT</marquee>
+    </div>
+
+    <div id="login-container" class="container">
+        <div class="login-box">
+            <div class="login-tabs">
+                <button class="tab-btn active btn btn-primary" onclick="switchTab('student')">Student</button>
+                <button class="tab-btn btn btn-secondary" onclick="switchTab('faculty')">Faculty</button>
+            </div>
+            
+            <div id="student-login" class="login-form active-tab">
+                <h3>Student Login</h3>
+                <form id="studentLoginForm" onsubmit="return validateStudentLogin(event)">
+                    <div class="form-group">
+                        <label for="studentId">Enrollment Number</label>
+                        <input type="text" id="studentId" class="form-control" placeholder="Enter your enrollment number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword">Password</label>
+                        <input type="password" id="studentPassword" class="form-control" placeholder="Enter your password" required>
+                        <span class="password-toggle" onclick="togglePassword('studentPassword')">Show</span>
+                    </div>
+                    <div class="form-group remember-me">
+                        <input type="checkbox" id="rememberStudent">
+                        <label for="rememberStudent">Remember me</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <div class="form-links">
+                        <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                        <a href="#" onclick="showFirstTimeLogin()">First Time Login</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="faculty-login" class="login-form">
+                <h3>Faculty Login</h3>
+                <form id="facultyLoginForm" onsubmit="return validateFacultyLogin(event)">
+                    <div class="form-group">
+                        <label for="facultyId">Faculty ID</label>
+                        <input type="text" id="facultyId" class="form-control" placeholder="Enter your faculty ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="facultyPassword">Password</label>
+                        <input type="password" id="facultyPassword" class="form-control" placeholder="Enter your password" required>
+                        <span class="password-toggle" onclick="togglePassword('facultyPassword')">Show</span>
+                    </div>
+                    <div class="form-group remember-me">
+                        <input type="checkbox" id="rememberFaculty">
+                        <label for="rememberFaculty">Remember me</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <div class="form-links">
+                        <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div id="forgot-password" class="login-box hidden">
+            <h3>Forgot Password</h3>
+            <form id="forgotPasswordForm" onsubmit="return handleForgotPassword(event)">
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" class="form-control" placeholder="Enter your registered email" required>
+                </div>
+                <div class="form-group">
+                    <label for="resetEnrollment">Enrollment/ID Number</label>
+                    <input type="text" id="resetEnrollment" class="form-control" placeholder="Enter your enrollment/ID number" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                    <button type="button" class="btn btn-secondary" onclick="backToLogin()">Back to Login</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="first-time-login" class="login-box hidden">
+            <h3>First Time Login</h3>
+            <form id="firstTimeLoginForm" onsubmit="return handleFirstTimeLogin(event)">
+                <div class="form-group">
+                    <label for="newEnrollment">Enrollment Number</label>
+                    <input type="text" id="newEnrollment" class="form-control" placeholder="Enter your enrollment number" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newEmail">Email Address</label>
+                    <input type="email" id="newEmail" class="form-control" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Create Password</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="Create a new password" required>
+                    <span class="password-toggle" onclick="togglePassword('newPassword')">Show</span>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    <span class="password-toggle" onclick="togglePassword('confirmPassword')">Show</span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="button" class="btn btn-secondary" onclick="backToLogin()">Back to Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="portal-container" class="container hidden">
+        <div class="sidebar">
+            <div class="user-info">
+                <img id="user-photo" src="C:\Users\shahd\OneDrive\Pictures\mine.jpg" alt="Student Photo">
+                <h3 id="user-name"></h3>
+                <p id="user-id"></p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" onclick="showSection('profile')">Profile</a></li>
+                    <li><a href="#" onclick="showSection('timetable')">Timetable</a></li>
+                    <li><a href="#" onclick="showSection('results')">Results</a></li>
+                    <li><a href="#" onclick="showSection('about')">About Us</a></li>
+                    <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div id="profile-section" class="section active">
+                <h2>Student Profile</h2>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-img">
+                            <img id="profile-photo" src="C:\Users\shahd\OneDrive\Pictures\mine.jpg" alt="Student Photo">
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profile-name"></h3>
+                            <p id="profile-program"></p>
+                            <p id="profile-semester"></p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-value" id="profile-cgpa"></span>
+                                    <span class="stat-label">CGPA</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="profile-attendance"></span>
+                                    <span class="stat-label">Attendance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <h4>Personal Information</h4>
+                            <div class="detail-row">
+                                <span class="detail-label">Enrollment No:</span>
+                                <span class="detail-value" id="profile-id"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="profile-email"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Date of Birth:</span>
+                                <span class="detail-value" id="profile-dob"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Phone:</span>
+                                <span class="detail-value" id="profile-phone"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Address:</span>
+                                <span class="detail-value" id="profile-address"></span>
+                            </div>
+                        </div>
+                        <div class="detail-group">
+                            <h4>Academic Information</h4>
+                            <div class="detail-row">
+                                <span class="detail-label">Program:</span>
+                                <span class="detail-value" id="profile-program-detail"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Batch:</span>
+                                <span class="detail-value" id="profile-batch"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Current Semester:</span>
+                                <span class="detail-value" id="profile-semester-detail"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="timetable-section" class="section">
+                <h2>Timetable</h2>
+                <iframe id="timetable-frame" src="timetable.html" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+
+            <div id="results-section" class="section">
+                <h2>Results</h2>
+                <iframe id="results-frame" src="marksheet.html" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+
+            <div id="about-section" class="section">
+                <h2>About Karnavati University</h2>
+                <div class="about-content">
+                    <img src="C:\Users\shahd\OneDrive\Desktop\ku_bg.png" alt="University Campus" class="about-img">
+                    <p>Karnavati University is a leading institution dedicated to excellence in education and research. Founded in 2012, we have established ourselves as a premier university in Gujarat, offering a wide range of undergraduate, postgraduate, and doctoral programs.</p>
+                    <p>Our mission is to provide quality education that prepares students for the challenges of the global marketplace while instilling values of integrity, innovation, and social responsibility.</p>
+                    <h3>Our Vision</h3>
+                    <p>To be a globally recognized center of excellence in education, research, and innovation that transforms lives and contributes to the development of society.</p>
+                    <h3>Our Values</h3>
+                    <ul>
+                        <li>Excellence in all endeavors</li>
+                        <li>Integrity and ethical conduct</li>
+                        <li>Innovation and creativity</li>
+                        <li>Inclusivity and diversity</li>
+                        <li>Social responsibility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="contact-section" class="section">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p><strong>Address:</strong> Karnavati University, Uvarsad Village, Gandhinagar, Gujarat 382422</p>
+                        <p><strong>Email:</strong> info@karnavatiuniversity.edu</p>
+                        <p><strong>Phone:</strong> +91 79 1234 5678</p>
+                        <p><strong>Helpline:</strong> +91 79 8765 4321</p>
+                        <h3>IT Support</h3>
+                        <p><strong>Email:</strong> itsupport@karnavatiuniversity.edu</p>
+                        <p><strong>Phone:</strong> +91 79 2345 6789</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Karnavati University</h3>
+                <p>Uvarsad, Gandhinagar</p>
+                <p>Gujarat 382422, India</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showSection('profile')">Profile</a></li>
+                    <li><a href="#" onclick="showSection('timetable')">Timetable</a></li>
+                    <li><a href="#" onclick="showSection('results')">Results</a></li>
+                    <li><a href="#" onclick="showSection('about')">About Us</a></li>
+                    <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/karnavati.uni/?__pwa=1#" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Karnavati University. All rights reserved.</p>
+            <p>Designed by Dhir Shah</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
