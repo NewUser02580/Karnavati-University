@@ -1,4 +1,4 @@
-// Student data
+
 const studentData = {
     "202307030004": {
         name: "Dhir Shah",
@@ -15,7 +15,6 @@ const studentData = {
     },
 };
 
-// Check if user is already logged in
 document.addEventListener('DOMContentLoaded', function() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     if (loggedInUser) {
@@ -24,24 +23,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Login Tab Switching
 function switchTab(tabName) {
-    // Hide all login forms
     document.querySelectorAll('.login-form').forEach(form => {
         form.classList.remove('active-tab');
     });
     
-    // Show selected login form
     document.getElementById(tabName + '-login').classList.add('active-tab');
     
-    // Update tab button styles
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     event.target.classList.add('active');
 }
 
-// Password Toggle
 function togglePassword(inputId) {
     const passwordInput = document.getElementById(inputId);
     const toggleBtn = passwordInput.nextElementSibling;
@@ -55,7 +49,6 @@ function togglePassword(inputId) {
     }
 }
 
-// Show Forgot Password Form
 function showForgotPassword() {
     document.querySelectorAll('.login-box').forEach(box => {
         box.classList.add('hidden');
@@ -63,7 +56,6 @@ function showForgotPassword() {
     document.getElementById('forgot-password').classList.remove('hidden');
 }
 
-// Show First Time Login Form
 function showFirstTimeLogin() {
     document.querySelectorAll('.login-box').forEach(box => {
         box.classList.add('hidden');
@@ -71,7 +63,6 @@ function showFirstTimeLogin() {
     document.getElementById('first-time-login').classList.remove('hidden');
 }
 
-// Back to Login
 function backToLogin() {
     document.querySelectorAll('.login-box').forEach(box => {
         box.classList.add('hidden');
@@ -79,18 +70,14 @@ function backToLogin() {
     document.querySelector('.login-box:first-of-type').classList.remove('hidden');
 }
 
-// Student Login Validation
 function validateStudentLogin(event) {
     event.preventDefault();
     const studentId = document.getElementById('studentId').value;
     const password = document.getElementById('studentPassword').value;
     
-    // Check if enrollment exists in our system
     if (studentData[studentId]) {
-        // In a real system, you would validate against a database
         showPortal(studentId);
         
-        // Save login state
         if (document.getElementById('rememberStudent').checked) {
             localStorage.setItem('loggedInUser', JSON.stringify({
                 id: studentId,
@@ -104,21 +91,18 @@ function validateStudentLogin(event) {
     return false;
 }
 
-// Faculty Login Validation
 function validateFacultyLogin(event) {
     event.preventDefault();
     alert('Faculty login functionality is not implemented in this demo.');
     return false;
 }
 
-// Admin Login Validation
 function validateAdminLogin(event) {
     event.preventDefault();
     alert('Administrator login functionality is not implemented in this demo.');
     return false;
 }
 
-// Forgot Password Handler
 function handleForgotPassword(event) {
     event.preventDefault();
     const email = document.getElementById('resetEmail').value;
@@ -127,7 +111,6 @@ function handleForgotPassword(event) {
     return false;
 }
 
-// First Time Login Handler
 function handleFirstTimeLogin(event) {
     event.preventDefault();
     const enrollment = document.getElementById('newEnrollment').value;
@@ -144,19 +127,15 @@ function handleFirstTimeLogin(event) {
     return false;
 }
 
-// Show Portal
 function showPortal(studentId) {
-    // Hide login container and show portal container
     document.getElementById('login-container').classList.add('hidden');
     document.getElementById('portal-container').classList.remove('hidden');
     
-    // Get student data
     const student = studentData[studentId];
     
-    // Update sidebar user info
     const userPhoto = document.getElementById('user-photo');
     userPhoto.src = student.photo;
-    userPhoto.classList.add('img-fluid');  // Apply Bootstrap class
+    userPhoto.classList.add('img-fluid');
     
     const userName = document.getElementById('user-name');
     userName.textContent = student.name;
@@ -164,10 +143,9 @@ function showPortal(studentId) {
     const userId = document.getElementById('user-id');
     userId.textContent = studentId;
     
-    // Update profile section
     const profilePhoto = document.getElementById('profile-photo');
     profilePhoto.src = student.photo;
-    profilePhoto.classList.add('img-fluid');  // Apply Bootstrap class
+    profilePhoto.classList.add('img-fluid');  
     
     const profileName = document.getElementById('profile-name');
     profileName.textContent = student.name;
@@ -208,26 +186,23 @@ function showPortal(studentId) {
     const profileSemesterDetail = document.getElementById('profile-semester-detail');
     profileSemesterDetail.textContent = student.semester;
     
-    // Show profile section by default
     showSection('profile');
 }
 
-// Show Section
 function showSection(sectionName) {
-    // Hide all sections
+ 
     document.querySelectorAll('.section').forEach(section => {
         section.classList.remove('active');
     });
     
-    // Show selected section
+
     document.getElementById(sectionName + '-section').classList.add('active');
     
-    // Update active nav link
+
     document.querySelectorAll('.sidebar nav a').forEach(link => {
         link.classList.remove('active');
     });
     
-    // Find the link that was clicked and add active class
     const links = document.querySelectorAll('.sidebar nav a');
     for (let i = 0; i < links.length; i++) {
         if (links[i].getAttribute('onclick').includes(sectionName)) {
@@ -237,31 +212,26 @@ function showSection(sectionName) {
     }
 }
 
-// Logout
 function logout() {
     localStorage.removeItem('loggedInUser');
     document.getElementById('portal-container').classList.add('hidden');
     document.getElementById('login-container').classList.remove('hidden');
     
-    // Clear form fields
     document.getElementById('studentId').value = '';
     document.getElementById('studentPassword').value = '';
     document.getElementById('rememberStudent').checked = false;
 }
 
-// Contact Form Submission
 document.getElementById('contactForm')?.addEventListener('submit', function(event) {
     event.preventDefault();
     alert('Your message has been sent. We will get back to you soon!');
     this.reset();
 });
 
-// Add Bootstrap Classes dynamically for Layout
 document.addEventListener('DOMContentLoaded', function () {
     const portalContainer = document.getElementById('portal-container');
     portalContainer.classList.add('container', 'mt-5');
 
-    // Apply Bootstrap grid to profile sections
     const profileSection = document.getElementById('profile-section');
     profileSection.classList.add('row');
 
